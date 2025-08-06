@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Improved Counter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f8fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .flex {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      background-color: #007bff;
+      color: white;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .count {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      width: 60px;
+      display: inline-block;
+    }
+
+    .done {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+
+    function HomePage() {
+      const [likes, setLikes] = React.useState(0);
+
+      const handlePlus = () => {
+        if (likes < 15) setLikes(likes + 1);
+      };
+
+      const handleMinus = () => {
+        if (likes > -20) setLikes(likes - 1);
+      };
+
+      const handleReset = () => {
+        if (likes === 15 || likes === -20) setLikes(0);
+      };
+
+      return (
+        <div className="container">
+          <h2>React Complex Counter</h2>
+          <div className="flex">
+            <button onClick={handleMinus} disabled={likes <= -20} title="Kurangi satu">−</button>
+            <span className={`count ${likes === 15 || likes === -20 ? "done" : ""}`}>
+              {likes === 15 || likes === -20 ? "Done!" : likes}
+            </span>
+            <button onClick={handlePlus} disabled={likes >= 15} title="Tambah satu">+</button>
+          </div>
+          <button onClick={handleReset} disabled={likes !== 15 && likes !== -20}>Reset</button>
+        </div>
+      );
+    }
+
+    root.render(<HomePage />);
+  </script>
+</body>
+
+</html>
